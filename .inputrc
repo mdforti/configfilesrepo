@@ -1,0 +1,37 @@
+$include /etc/inputrc
+set editing-mode vi
+set show-mode-in-prompt on
+set completion-ignore-case on 
+set horizontal-scroll-mode on 
+#set vi-ins-mode-string \1\e[6 q\2
+#set vi-cmd-mode-string \1\e[2 q\2
+## optionally:
+## switch to block cursor before executing a command
+#set keymap vi-insert
+#RETURN: "\e\n"
+#dd
+"\C-x\C-r":re-read-init-file
+"\C-t":"/usr/bin/tmux\n"
+"\C-l":"/bin/ls -tral --color --group-directories-first\n"
+"\C-e":"exit\n"
+"\C-g":"|grep "
+"\C-x":"|xargs -I{} "
+#"\C-f":"fg\n"
+"\C-f":"vifm\n"
+# Bindings para ir a clusters, h para hpc
+"\C-h\C-d":"dropbox.py start\n"
+#bindings para archivos de configuracion , w oara write
+"\C-w\C-e":"vim ~/.bashrc\nsource ~/.bashrc\n"
+"\C-w\C-p":"vim ~/.profile\nsource ~/.profile\n"
+"\C-w\C-a":"vim ~/.bash_aliases\nsource ~/.bash_aliases\n"
+"\C-w\C-v":"vim ~/.vimrc\n"
+"\C-w\C-i":"vim ~/.inputrc\nbind -m ~/.inputrc\n"
+"\C-w\C-s":"vim ~/.ssh/config\n"
+"\C-w\C-t":"vim ~/.tmux.conf\n"
+# bindings to reload environments
+"\C-a\C-a":"conda activate /data/Anaconda/Modelizacion/\n"
+"\C-a\C-p":"conda activate /data/Anaconda/ifermi_pymatgen/\n"
+"\C-a\C-j":"nohup jupyter lab --no-browser --ip 0.0.0.0 > jupyter_log.txt &\n"
+#"\C-,\C-f":"nohup ~/storage/usr/bin/firefox -P Jupyter-Notebooks  &> firefox_log \n"
+"\C-a\C-g":"cat jupyter_log.txt |grep mlaptopII | tail -1 \n"
+"\C-a\C-f":"cat jupyter_log.txt |grep mlaptopII |tail -1 | sed \'s/mlaptopIII/localhost/g\' | xargs -I{} firefox -P Jupyter-Notebooks {} & \n"
